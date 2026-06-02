@@ -1,4 +1,8 @@
-# OrderFlow Commerce OS
+#  OrderFlow | Storefront & Order Management System
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Vite](https://img.shields.io/badge/Vite-Frontend-purple)
+![Supabase](https://img.shields.io/badge/Supabase-Backend-green)
 
 A modern full-stack eCommerce Storefront and Order Management System (OMS) built with React, TypeScript and Supabase.
 
@@ -100,37 +104,51 @@ REFUNDED
 
 ## Screenshots
 
-### Storefront
-
-![Storefront](screenshots/hero-eshop.png)
-
-### Product Details
-
-![Product Modal](screenshots/product-card.png)
-
-### Checkout
-
-![Checkout](screenshots/checkout.png)
-
 ### OMS Dashboard
 
-![Dashboard](screenshots/admin-dashboard.png)
+<p align="center">
+  <img src="screenshots/admin-dashboard.png" width="900">
+</p>
 
 ### Orders
 
-![Orders](screenshots/admin-orderlist.png)
+<p align="center">
+  <img src="screenshots/admin-orderlist.png" width="900">
+</p>
 
 ### Order Details
 
-![Order Details](screenshots/admin-order.png)
+<p align="center">
+  <img src="screenshots/admin-order.png" width="900">
+</p>
 
 ### Inventory
 
-![Inventory](screenshots/admin-inventory.png)
+<p align="center">
+  <img src="screenshots/admin-inventory.png" width="900">
+</p>
 
 ### Returns
 
-![Returns](screenshots/admin-returns.png)
+<p align="center">
+  <img src="screenshots/admin-returns.png" width="900">
+</p>
+
+<p align="center">
+  <img src="screenshots/hero-eshop.png" width="900">
+</p>
+
+### Product Details
+
+<p align="center">
+  <img src="screenshots/product-card.png" width="900">
+</p>
+
+### Checkout
+
+<p align="center">
+  <img src="screenshots/checkout.png" width="900">
+</p>
 
 ---
 
@@ -175,8 +193,8 @@ REFUNDED
 ### Clone Repository
 
 ```bash
-git clone https://github.com/vtmag/orderflow-commerce-os.git
-cd orderflow-commerce-os
+git clone https://github.com/vtmag/orderflow-db-full.git
+cd orderflow-db-full
 ```
 
 ### Install Dependencies
@@ -307,8 +325,6 @@ supabase/
 ## Author
 
 **Magdalini Vitsioti**
-
-Built as a portfolio project focused on modern eCommerce operations, order management systems and real-world business workflows.
 
 ---
 
