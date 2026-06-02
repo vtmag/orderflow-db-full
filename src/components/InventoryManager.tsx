@@ -3,17 +3,21 @@ import { PackageCheck, Plus, Search } from 'lucide-react';
 import type { Product } from '../types';
 import { CreateSkuModal } from './CreateSkuModal';
 import { AddStockModal } from './AddStockModal';
-
+import { archiveProductBySku, activateProductBySku } from '../lib/api';
+import '../styles.css'
 export function InventoryManager({products,reload}:{products:Product[];reload:()=>void}) {
  const [modal,setModal]=useState<'create'|'stock'|null>(null);
  const [msg,setMsg]=useState('');
  const [q,setQ]=useState('');
-
+const [toast,setToast]=useState('');
  const lowStock = products.filter(p=>Number(p.stock) < 15).length;
  const totalStock = products.reduce((a,p)=>a+Number(p.stock || 0),0);
- const filtered = products
-  .filter(p=>`${p.sku} ${p.name} ${p.category}`.toLowerCase().includes(q.toLowerCase()))
-  .slice(0,5);
+const filtered = products
+  .filter(p =>
+    `${p.sku} ${p.name} ${p.category}`
+      .toLowerCase()
+      .includes(q.toLowerCase())
+  );
 
  return (
   <section className="panel stock-panel">
@@ -39,6 +43,11 @@ export function InventoryManager({products,reload}:{products:Product[];reload:()
     <div><small>Total units</small><b>{totalStock}</b></div>
     <div><small>Low stock</small><b>{lowStock}</b></div>
    </div>
+   {toast && (
+  <div className="inventory-toast">
+    {toast}
+  </div>
+)}
 
    {msg && <div className="banner">{msg}</div>}
 
@@ -53,17 +62,46 @@ export function InventoryManager({products,reload}:{products:Product[];reload:()
 
    <div className="mini-stock-list">
     {filtered.map(p=>
-     <div className="mini-stock-row" key={p.id}>
-      <img src={p.image_url} alt={p.name}/>
-      <div>
-       <b>{p.sku}</b>
-       <span>{p.name}</span>
-      </div>
-      <em>{p.category}</em>
-      <strong className={Number(p.stock) < 15 ? 'low-stock' : ''}>
-       {p.stock} units
-      </strong>
-     </div>
+ <div className="mini-stock-row" key={p.id}>
+  <img src={p.image_url} alt={p.name}/>
+
+  <div>
+    <b>{p.sku}</b>
+    <span>{p.name}</span>
+  </div>
+
+  <em>{p.category}</em>
+
+  <em className={p.active === false ? 'archived-label' : 'active-label'}>
+    {p.active === false ? 'Archived' : 'Active'}
+  </em>
+
+  <strong className={Number(p.stock) < 15 ? 'low-stock' : ''}>
+    {p.stock} units
+  </strong>
+
+  <button
+   className={p.active === false ? 'sku-activate-btn' : 'sku-archive-btn'}
+    
+    onClick={async()=>{
+         console.log('FULL PRODUCT:', p);
+     if(p.active === false){
+  await activateProductBySku(p.sku);
+  setToast(`${p.sku} is active again and visible in storefront.`);
+} else {
+  await archiveProductBySku(p.sku);
+  setToast(`${p.sku} archived and hidden from storefront.`);
+}
+      await reload();
+
+      setTimeout(()=>{
+        setToast('');
+      }, 3500);
+    }}
+  >
+    {p.active === false ? 'Activate' : 'Archive'}
+  </button>
+</div>
     )}
    </div>
 

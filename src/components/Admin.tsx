@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BarChart3, Boxes, CircleDollarSign, ClipboardList, Filter, PackageCheck, Plus, RefreshCcw, Search, ShieldCheck, Truck, Zap } from 'lucide-react';
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { supabase } from '../lib/supabase';
@@ -30,6 +31,8 @@ export function Admin({
   reload:()=>void;
   loading:boolean;
 }){
+  const navigate = useNavigate();
+const { sectionParam, orderId } = useParams();
  const [q,setQ]=useState(''); const [selected,setSelected]=useState<Order|null>(null);
  const [page,setPage]=useState(1);
  const [returnsPage,setReturnsPage]=useState(1);
@@ -59,6 +62,33 @@ const paginatedLogs = logs.slice(
 
 const [section,setSection] = useState<'dashboard'|'orders'|'inventory'|'returns'|'discounts'|'customers'|'audit'>('dashboard');
 
+useEffect(()=>{
+  if(!sectionParam){
+    setSection('dashboard');
+    return;
+  }
+
+  if(
+    ['orders','inventory','returns','discounts','customers','audit']
+      .includes(sectionParam)
+  ){
+    setSection(sectionParam as any);
+  }
+},[sectionParam]);
+
+
+useEffect(()=>{
+  if(!orderId || !orders.length) return;
+
+ const found = orders.find(
+  o => o.order_no === orderId
+);
+
+  if(found){
+    setSection('orders');
+    setSelected(found);
+  }
+},[orderId, orders]);
 
 let visibleOrders = orders;
 
@@ -157,7 +187,7 @@ function DiscountsManager({discounts,products,reload}:{discounts:any[];products:
   <div className="table-head">
    <div>
     <h2>Discounts</h2>
-    <p className="muted">Create and manage Shopify-style coupon codes.</p>
+    <p className="muted">Create and manage coupon codes.</p>
    </div>
 
    <button className="primary" onClick={()=>setModal(true)}>
@@ -570,50 +600,50 @@ const activeDiscounts = discounts.filter(
     </div>
 
     <button
-      className={section==='dashboard'?'active':''}
-      onClick={()=>setSection('dashboard')}
-    >
-      Dashboard
-    </button>
+  className={section==='dashboard'?'active':''}
+  onClick={()=>navigate('/admin')}
+>
+  Dashboard
+</button>
 
     <button
       className={section==='orders'?'active':''}
-      onClick={()=>setSection('orders')}
+      onClick={()=>navigate('/admin/orders')}
     >
       Orders
     </button>
 
 <button
   className={section==='customers'?'active':''}
-  onClick={()=>setSection('customers')}
+  onClick={()=>navigate('/admin/customers')}
 >
   Customers
 </button>
 
     <button
   className={section==='discounts'?'active':''}
-  onClick={()=>setSection('discounts')}
+  onClick={()=>navigate('/admin/discounts')}
 >
   Discounts
 </button>
 
     <button
       className={section==='inventory'?'active':''}
-      onClick={()=>setSection('inventory')}
+      onClick={()=>navigate('/admin/inventory')}
     >
       Inventory
     </button>
 
     <button
       className={section==='returns'?'active':''}
-      onClick={()=>setSection('returns')}
+      onClick={()=>navigate('/admin/returns')}
     >
       Returns
     </button>
 
     <button
       className={section==='audit'?'active':''}
-      onClick={()=>setSection('audit')}
+      onClick={()=>navigate('/admin/audit')}
     >
       Audit Logs
     </button>
@@ -747,7 +777,13 @@ const activeDiscounts = discounts.filter(
 
             {paginated.map(o=>
 
-              <tr key={o.id} onClick={()=>setSelected(o)}>
+                      <tr
+            key={o.id}
+            onClick={()=>{
+              setSelected(o);
+             navigate(`/admin/orders/${o.order_no}`);
+            }}
+          >
 
                 <td>
    <b>{o.order_no}</b>
@@ -805,8 +841,8 @@ const activeDiscounts = discounts.filter(
                 </td>
 
                 <td>
-
-                  <select
+<select
+  className="status-select"
   value={fulfillmentOf(o)}
   disabled={fulfillmentOf(o) === 'CANCELLED'}
   onChange={e=>{
@@ -908,10 +944,11 @@ const activeDiscounts = discounts.filter(
   customers={customers}
   orders={orders}
   returns={returns}
-  openOrder={(order)=>{
-    setSection('orders');
-    setSelected(order);
-  }}
+ openOrder={(order)=>{
+  setSection('orders');
+  setSelected(order);
+  navigate(`/admin/orders/${order.order_no}`);
+}}
 />
 )}
 
@@ -1229,14 +1266,17 @@ const activeDiscounts = discounts.filter(
 
   </div>
 )}
-    {selected&&(
-     <OrderDrawer
-      order={selected}
-      logs={logs.filter(l=>l.order_id===selected.id)}
-      close={()=>setSelected(null)}
-      reload={reload}
-    />
-    )}
+  {selected&&(
+  <OrderDrawer
+    order={selected}
+    logs={logs.filter(l=>l.order_id===selected.id)}
+    close={()=>{
+      setSelected(null);
+      navigate('/admin/orders');
+    }}
+    reload={reload}
+  />
+)}
 
   </section>
 

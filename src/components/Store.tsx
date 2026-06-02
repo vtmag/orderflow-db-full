@@ -25,20 +25,32 @@ export function Store({
   clear:()=>void;
   reload:()=>void;
 }){
+ 
  const [cartOpen,setCartOpen]=useState(false);
  const [selected,setSelected]=useState<Product|null>(null);
  const [category,setCategory]=useState('All');
  const [sort,setSort]=useState('featured');
  const [query,setQuery]=useState('');
- const categories=['All',...Array.from(new Set(products.map(p=>p.category)))];
- const featured=products[0];
+const storefrontProducts = products.filter(p => p.active !== false);
+
+const categories=[
+  'All',
+  ...Array.from(new Set(storefrontProducts.map(p=>p.category)))
+];
+
+const featured=storefrontProducts[0];
  const visible=useMemo(()=>{
-  let list=products.filter(p=>(category==='All'||p.category===category) && `${p.name} ${p.sku} ${p.category}`.toLowerCase().includes(query.toLowerCase()));
+  let list = storefrontProducts.filter(p =>
+  (category==='All'||p.category===category) &&
+  `${p.name} ${p.sku} ${p.category}`
+    .toLowerCase()
+    .includes(query.toLowerCase())
+);
   if(sort==='price-asc') list=[...list].sort((a,b)=>Number(a.price)-Number(b.price));
   if(sort==='price-desc') list=[...list].sort((a,b)=>Number(b.price)-Number(a.price));
   if(sort==='stock') list=[...list].sort((a,b)=>Number(b.stock)-Number(a.stock));
   return list;
- },[products,category,sort,query]);
+ },[storefrontProducts,category,sort,query]);
  const count=cart.reduce((a,i)=>a+i.qty,0);
  const total=cart.reduce((a,i)=>a+Number(i.product.price)*i.qty,0);
  return <main className="store-shell">

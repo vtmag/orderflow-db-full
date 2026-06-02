@@ -3,9 +3,14 @@ import type { Product, Order, AuditLog, ReturnRow, CartItem, Status } from '../t
 
 const must = () => { if (!supabase) throw new Error('Supabase is not configured. Create .env.local from .env.example.'); return supabase; };
 
-export async function getProducts(): Promise<Product[]> {
-  const { data, error } = await must().from('products').select('*').eq('active', true).order('created_at');
-  if (error) throw error; return data ?? [];
+export async function getProducts() {
+  const { data, error } = await must()
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
 }
 
 export async function getOrders(): Promise<Order[]> {
@@ -121,6 +126,35 @@ export async function adjustStock(productId: string, quantity: number) {
   if (error) throw error;
 }
 
+export async function archiveProductBySku(sku:string) {
+  const { data, error } = await must()
+    .from('products')
+    .update({ active: false })
+    .eq('sku', sku)
+    .select('*');
+
+  if (error) throw error;
+  if (!data || data.length === 0) {
+    throw new Error('No product was updated by SKU.');
+  }
+
+  return data[0];
+}
+
+export async function activateProductBySku(sku:string) {
+  const { data, error } = await must()
+    .from('products')
+    .update({ active: true })
+    .eq('sku', sku)
+    .select('*');
+
+  if (error) throw error;
+  if (!data || data.length === 0) {
+    throw new Error('No product was updated by SKU.');
+  }
+
+  return data[0];
+}
 export async function getDiscounts() {
   const { data, error } = await must()
     .from('discounts')
