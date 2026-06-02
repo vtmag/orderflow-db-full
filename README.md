@@ -104,53 +104,69 @@ REFUNDED
 
 ## Screenshots
 
-### OMS Dashboard
+### Order Management System
 
-<p align="center">
-  <img src="screenshots/admin-dashboard.png" width="600">
-</p>
+<table>
+<tr>
+<td>
+<img src="screenshots/admin-dashboard.png" width="350">
+</td>
+<td>
+<img src="screenshots/admin-orderlist.png" width="350">
+</td>
+<td>
+<img src="screenshots/admin-order.png" width="350">
+</td>
+</tr>
 
-### Orders
+<tr>
+<td><b>Dashboard</b></td>
+<td><b>Orders</b></td>
+<td><b>Order Details</b></td>
+</tr>
+</table>
 
-<p align="center">
-  <img src="screenshots/admin-orderlist.png" width="600">
-</p>
+### Operations & Inventory
 
-### Order Details
+<table>
+<tr>
+<td>
+<img src="screenshots/admin-inventory.png" width="350">
+</td>
+<td>
+<img src="screenshots/admin-returns.png" width="350">
+</td>
+<td>
+<img src="screenshots/hero-eshop.png" width="350">
+</td>
+</tr>
 
-<p align="center">
-  <img src="screenshots/admin-order.png" width="600">
-</p>
+<tr>
+<td><b>Inventory</b></td>
+<td><b>Returns</b></td>
+<td><b>Storefront</b></td>
+</tr>
+</table>
 
-### Inventory
+### Customer Experience
 
-<p align="center">
-  <img src="screenshots/admin-inventory.png" width="600">
-</p>
+<table>
+<tr>
+<td>
+<img src="screenshots/product-card.png" width="350">
+</td>
+<td>
+<img src="screenshots/checkout.png" width="350">
+</td>
+<td></td>
+</tr>
 
-### Returns
-
-<p align="center">
-  <img src="screenshots/admin-returns.png" width="600">
-</p>
-
-### Storefront
-
-<p align="center">
-  <img src="screenshots/hero-eshop.png" width="600">
-</p>
-
-### Product Details
-
-<p align="center">
-  <img src="screenshots/product-card.png" width="600">
-</p>
-
-### Checkout
-
-<p align="center">
-  <img src="screenshots/checkout.png" width="600">
-</p>
+<tr>
+<td><b>Product Details</b></td>
+<td><b>Checkout</b></td>
+<td></td>
+</tr>
+</table>
 
 ---
 
