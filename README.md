@@ -136,15 +136,11 @@ REFUNDED
 <td>
 <img src="screenshots/admin-returns.png" width="350">
 </td>
-<td>
-<img src="screenshots/hero-eshop.png" width="350">
-</td>
 </tr>
 
 <tr>
 <td><b>Inventory</b></td>
 <td><b>Returns</b></td>
-<td><b>Storefront</b></td>
 </tr>
 </table>
 
@@ -152,6 +148,9 @@ REFUNDED
 
 <table>
 <tr>
+<td>
+<img src="screenshots/hero-eshop.png" width="350">
+</td>
 <td>
 <img src="screenshots/product-card.png" width="350">
 </td>
@@ -162,6 +161,7 @@ REFUNDED
 </tr>
 
 <tr>
+<td><b>Storefront</b></td>
 <td><b>Product Details</b></td>
 <td><b>Checkout</b></td>
 <td></td>
