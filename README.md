@@ -1,120 +1,317 @@
-# OrderFlow — Full Supabase OMS + Storefront
+# OrderFlow Commerce OS
 
-Ολοκληρωμένο full-stack demo project με:
+A modern full-stack eCommerce Storefront and Order Management System (OMS) built with React, TypeScript and Supabase.
 
-- μοντέρνο React/Vite storefront
-- cart και fake checkout
-- πραγματική δημιουργία order σε Supabase/Postgres
-- inventory deduction
-- OMS admin dashboard
-- order status flow
-- returns/refunds με stock restore
-- audit logs/timeline
-- analytics charts
-- Supabase SQL schema + seed data + RPC functions
+OrderFlow combines a customer-facing storefront with a professional operations dashboard inspired by modern commerce platforms such as Shopify and Salesforce Commerce Cloud.
 
-## 1. Install
+---
+
+## Live Demo
+
+Coming Soon
+
+---
+
+## Overview
+
+OrderFlow was designed to simulate a real-world eCommerce operations environment.
+
+The platform provides both:
+
+- A customer-facing storefront
+- A professional Order Management System (OMS)
+
+The goal of the project is to demonstrate modern frontend architecture, order lifecycle management, inventory operations, returns processing and real-time business workflows.
+
+---
+
+## Key Features
+
+### Storefront
+
+- Product catalog
+- Product detail modal
+- Shopping cart
+- Checkout process
+- Discount code support
+- Real-time inventory visibility
+- Responsive user interface
+
+### OMS Admin
+
+- Dashboard analytics
+- Order management
+- Inventory management
+- Customer management
+- Returns management
+- Discount management
+- Audit logs
+- Real-time order updates
+
+### Inventory Management
+
+- Create new SKUs
+- Stock adjustments
+- Product activation
+- Product archiving
+- Storefront visibility control
+- Low stock monitoring
+
+### Returns & Refunds
+
+- Return requests
+- Return approval workflow
+- Return received processing
+- Refund handling
+- Revenue adjustments
+- Inventory restoration
+
+---
+
+## Order Lifecycle
+
+```text
+PAID
+↓
+PROCESSING
+↓
+PACKED
+↓
+SHIPPED
+↓
+DELIVERED
+```
+
+Returns workflow:
+
+```text
+DELIVERED
+↓
+RETURN_REQUESTED
+↓
+RETURN_APPROVED
+↓
+RETURN_RECEIVED
+↓
+REFUNDED
+```
+
+---
+
+## Screenshots
+
+### Storefront
+
+![Storefront](screenshots/hero-eshop.png)
+
+### Product Details
+
+![Product Modal](screenshots/product-card.png)
+
+### Checkout
+
+![Checkout](screenshots/checkout.png)
+
+### OMS Dashboard
+
+![Dashboard](screenshots/admin-dashboard.png)
+
+### Orders
+
+![Orders](screenshots/admin-orderlist.png)
+
+### Order Details
+
+![Order Details](screenshots/admin-order.png)
+
+### Inventory
+
+![Inventory](screenshots/admin-inventory.png)
+
+### Returns
+
+![Returns](screenshots/admin-returns.png)
+
+---
+
+## Technology Stack
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Recharts
+- Lucide React
+
+### Backend
+
+- Supabase
+- PostgreSQL
+- Realtime Subscriptions
+- Row Level Security (RLS)
+
+---
+
+## Routes
+
+| Route | Description |
+|---------|-------------|
+| / | Storefront |
+| /admin | OMS Dashboard |
+| /admin/orders | Orders |
+| /admin/customers | Customers |
+| /admin/inventory | Inventory |
+| /admin/returns | Returns |
+| /admin/discounts | Discounts |
+| /admin/audit | Audit Logs |
+| /admin/orders/:id | Order Details |
+
+---
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/vtmag/orderflow-commerce-os.git
+cd orderflow-commerce-os
+```
+
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-## 2. Supabase setup
+### Configure Environment Variables
 
-1. Μπες στο Supabase και φτιάξε νέο project.
-2. Άνοιξε **SQL Editor**.
-3. Κάνε copy όλο το αρχείο:
+Create a `.env.local` file:
 
-```bash
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### Database Setup
+
+Run the SQL script located in:
+
+```text
 supabase/schema.sql
 ```
 
-4. Πάτησε **Run**.
+using the Supabase SQL Editor.
 
-Αυτό θα δημιουργήσει tables, enum types, seed products και functions:
-
-- `create_checkout_order`
-- `update_order_status`
-- `request_return`
-- `approve_refund`
-
-## 3. Environment variables
-
-Κάνε copy:
-
-```bash
-cp .env.example .env.local
-```
-
-Βάλε μέσα:
-
-```env
-VITE_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
-```
-
-Τα βρίσκεις στο Supabase: **Project Settings → API**.
-
-## 4. Run locally
+### Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Άνοιξε:
+Application URLs:
 
-```bash
+```text
+Storefront:
 http://localhost:5173
+
+Admin:
+http://localhost:5173/admin
 ```
 
-## 5. Πώς δουλεύει το fake checkout
+### Production Build
 
-Στο Storefront:
+```bash
+npm run build
+```
 
-1. Add products στο cart.
-2. Άνοιξε cart.
-3. Πάτα **Pay with fake gateway**.
+### Preview Production Build
 
-Δεν γίνεται πραγματική πληρωμή. Το app καλεί Supabase RPC `create_checkout_order`, που:
+```bash
+npm run preview
+```
 
-- δημιουργεί customer
-- δημιουργεί order
-- δημιουργεί order_items
-- μειώνει product stock
-- γράφει audit logs
-- επιστρέφει order id
+---
 
-## 6. OMS Admin
+## Inventory Features
 
-Στο tab **OMS Admin** βλέπεις:
+- SKU creation
+- Stock adjustments
+- Product archiving
+- Product activation
+- Storefront visibility control
 
-- revenue
-- orders
-- products
-- low stock
-- sales chart
-- inventory chart
-- orders table
-- status dropdown
-- return request
-- approve refund
-- audit stream
-- order detail drawer
+Archived products remain available for historical orders while being hidden from customers.
 
-## 7. Portfolio pitch
+---
 
-> Built a full-stack commerce operations platform with a custom storefront, fake checkout, Supabase/Postgres order persistence, inventory deduction, returns/refunds, audit logs and an OMS admin dashboard.
+## Returns & Refunds
 
-## 8. Deployment
+- Return requests
+- Return approval workflow
+- Return received processing
+- Refund handling
+- Revenue adjustments
+- Inventory restoration
 
-Για Vercel/Netlify:
+---
 
-1. Push στο GitHub.
-2. Import project.
-3. Πρόσθεσε τα ίδια environment variables.
-4. Deploy.
+## Security
 
+Current implementation includes:
 
+- Admin access protection
+- Environment variable configuration
+- Supabase RLS support
 
-## Storefront upgrade
-This version includes a more realistic e-commerce storefront: hero section, promo strip, categories, search, sorting, product details modal, cart drawer, multi-step fake checkout, and Supabase-backed order creation.
+Future production implementation should include:
+
+- Authentication
+- User sessions
+- Role-based access control
+
+---
+
+## Future Enhancements
+
+- Authentication
+- Role-based permissions
+- Payment gateway integration
+- Shipment tracking integrations
+- Email notifications
+- Multi-warehouse inventory
+- Vendor management
+- Advanced analytics
+
+---
+
+## Project Structure
+
+```text
+src/
+├── components/
+├── lib/
+├── utils/
+├── App.tsx
+├── main.tsx
+├── styles.css
+└── types.ts
+
+supabase/
+└── schema.sql
+```
+
+---
+
+## Author
+
+**Magdalini Vitsioti**
+
+Built as a portfolio project focused on modern eCommerce operations, order management systems and real-world business workflows.
+
+---
+
+## License
+
+MIT License
