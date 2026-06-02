@@ -5,7 +5,7 @@ export type Status =
   | 'SHIPPED'
   | 'DELIVERED'
   | 'CANCELLED';
-export type Product = {id:string; sku:string; name:string; category:string; price:number; stock:number; image_url:string; accent:string; active:boolean};
+export type Product = {id:string; sku:string; name:string; category:string; price:number; stock:number; image_url:string; accent:string; active:boolean;description?: string | null;};
 export type Customer = {id:string; name:string; email:string; phone?:string; city?:string};
 export type Order = {id:string; order_no:string; customer_id:string; status:Status; subtotal:number; shipping:number; total:number; payment_method:string; shipping_address?:string; notes?:string; created_at:string; customer?:Customer; order_items?:OrderItem[];discount_code?: string;
 discount_amount?: number;
