@@ -107,47 +107,49 @@ REFUNDED
 ### OMS Dashboard
 
 <p align="center">
-  <img src="screenshots/admin-dashboard.png" width="900">
+  <img src="screenshots/admin-dashboard.png" width="600">
 </p>
 
 ### Orders
 
 <p align="center">
-  <img src="screenshots/admin-orderlist.png" width="900">
+  <img src="screenshots/admin-orderlist.png" width="600">
 </p>
 
 ### Order Details
 
 <p align="center">
-  <img src="screenshots/admin-order.png" width="900">
+  <img src="screenshots/admin-order.png" width="600">
 </p>
 
 ### Inventory
 
 <p align="center">
-  <img src="screenshots/admin-inventory.png" width="900">
+  <img src="screenshots/admin-inventory.png" width="600">
 </p>
 
 ### Returns
 
 <p align="center">
-  <img src="screenshots/admin-returns.png" width="900">
+  <img src="screenshots/admin-returns.png" width="600">
 </p>
 
+### Storefront
+
 <p align="center">
-  <img src="screenshots/hero-eshop.png" width="900">
+  <img src="screenshots/hero-eshop.png" width="600">
 </p>
 
 ### Product Details
 
 <p align="center">
-  <img src="screenshots/product-card.png" width="900">
+  <img src="screenshots/product-card.png" width="600">
 </p>
 
 ### Checkout
 
 <p align="center">
-  <img src="screenshots/checkout.png" width="900">
+  <img src="screenshots/checkout.png" width="600">
 </p>
 
 ---
