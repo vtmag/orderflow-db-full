@@ -164,7 +164,6 @@ REFUNDED
 <td><b>Storefront</b></td>
 <td><b>Product Details</b></td>
 <td><b>Checkout</b></td>
-<td></td>
 </tr>
 </table>
 
