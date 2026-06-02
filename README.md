@@ -12,7 +12,7 @@ OrderFlow combines a customer-facing storefront with a professional operations d
 
 ## Live Demo
 
-Coming Soon
+https://orderflow-db-full-4s5k-5q89xo1nn-vtmags-projects.vercel.app/
 
 ---
 
@@ -186,6 +186,10 @@ REFUNDED
 - Realtime Subscriptions
 - Row Level Security (RLS)
 
+### Deployment
+
+- Vercel
+
 ---
 
 ## Routes
@@ -337,6 +341,38 @@ supabase/
 ```
 
 ---
+
+## Deployment
+
+The application is deployed on Vercel and configured for SPA routing using React Router.
+
+### Build
+
+```bash
+npm run build
+```
+
+### Deployment Platform
+
+- Vercel
+
+### Environment Variables
+
+```env
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+VITE_ADMIN_PASSWORD=...
+```
+
+### SPA Routing
+
+The project includes a Vercel configuration to support React Router routes such as:
+
+- /admin
+- /admin/orders
+- /admin/orders/:id
+
+without generating 404 errors after page refresh.
 
 ## Author
 
