@@ -157,7 +157,6 @@ REFUNDED
 <td>
 <img src="screenshots/checkout.png" width="350">
 </td>
-<td></td>
 </tr>
 
 <tr>
