@@ -1,28 +1,21 @@
-export default async function handler(req: Request): Promise<Response> {
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { orderId, customerEmail, customerName, total } = await req.json();
+    const { orderId, customerEmail, customerName, total } = req.body;
 
     if (!orderId || !customerEmail) {
-      return new Response(JSON.stringify({ error: "Missing orderId or customerEmail" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(400).json({ error: "Missing orderId or customerEmail" });
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY as string;
+    const resendApiKey = process.env.RESEND_API_KEY;
 
     if (!resendApiKey) {
-      return new Response(JSON.stringify({ error: "RESEND_API_KEY is not configured" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(500).json({ error: "RESEND_API_KEY is not configured" });
     }
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
@@ -49,20 +42,11 @@ export default async function handler(req: Request): Promise<Response> {
     const data = await resendResponse.json();
 
     if (!resendResponse.ok) {
-      return new Response(JSON.stringify({ error: data }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(500).json({ error: data });
     }
 
-    return new Response(JSON.stringify({ success: true, data }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return res.status(200).json({ success: true, data });
   } catch (error) {
-    return new Response(JSON.stringify({ error: String(error) }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return res.status(500).json({ error: String(error) });
   }
 }
