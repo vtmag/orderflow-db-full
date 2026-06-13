@@ -1,18 +1,21 @@
-#  OrderFlow | Storefront & Order Management System
+# OrderFlow | Storefront & Order Management System
+
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![Vite](https://img.shields.io/badge/Vite-Frontend-purple)
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-green)
+![Vercel](https://img.shields.io/badge/Vercel-Deployment-black)
+![Resend](https://img.shields.io/badge/Resend-Email-orange)
 
 A modern full-stack eCommerce Storefront and Order Management System (OMS) built with React, TypeScript and Supabase.
 
-OrderFlow combines a customer-facing storefront with a professional operations dashboard inspired by modern commerce platforms such as Shopify and Salesforce Commerce Cloud.
+OrderFlow combines a customer-facing storefront with a professional operations dashboard inspired by modern commerce platforms such as Shopify and Salesforce OMS.
 
 ---
 
 ## Live Demo
 
-https://orderflow-db-full-4s5k-5q89xo1nn-vtmags-projects.vercel.app/
+https://orderflow-db-full.vercel.app/
 
 ---
 
@@ -25,7 +28,7 @@ The platform provides both:
 - A customer-facing storefront
 - A professional Order Management System (OMS)
 
-The goal of the project is to demonstrate modern frontend architecture, order lifecycle management, inventory operations, returns processing and real-time business workflows.
+The goal of the project is to demonstrate modern frontend architecture, order lifecycle management, inventory operations, returns processing, customer management and real-world business workflows.
 
 ---
 
@@ -39,6 +42,7 @@ The goal of the project is to demonstrate modern frontend architecture, order li
 - Checkout process
 - Discount code support
 - Real-time inventory visibility
+- Automated order confirmation emails
 - Responsive user interface
 
 ### OMS Admin
@@ -69,6 +73,13 @@ The goal of the project is to demonstrate modern frontend architecture, order li
 - Refund handling
 - Revenue adjustments
 - Inventory restoration
+
+### Integrations
+
+- Resend transactional emails
+- Vercel Serverless Functions
+- Supabase Realtime
+- PostgreSQL database
 
 ---
 
@@ -109,20 +120,30 @@ REFUNDED
 <table>
 <tr>
 <td>
-<img src="screenshots/admin-dashboard.png" width="350">
+<img src="screenshots/admin-dashboard.png" width="450">
 </td>
 <td>
-<img src="screenshots/admin-orderlist.png" width="350">
-</td>
-<td>
-<img src="screenshots/admin-order.png" width="350">
+<img src="screenshots/admin-orderlist.png" width="450">
 </td>
 </tr>
 
 <tr>
-<td><b>Dashboard</b></td>
-<td><b>Orders</b></td>
-<td><b>Order Details</b></td>
+<td align="center"><b>Dashboard</b></td>
+<td align="center"><b>Orders</b></td>
+</tr>
+
+<tr>
+<td>
+<img src="screenshots/admin-order.png" width="450">
+</td>
+<td>
+<img src="screenshots/email.png" width="450">
+</td>
+</tr>
+
+<tr>
+<td align="center"><b>Order Details</b></td>
+<td align="center"><b>Order Confirmation Email</b></td>
 </tr>
 </table>
 
@@ -131,16 +152,16 @@ REFUNDED
 <table>
 <tr>
 <td>
-<img src="screenshots/admin-inventory.png" width="350">
+<img src="screenshots/admin-inventory.png" width="450">
 </td>
 <td>
-<img src="screenshots/admin-returns.png" width="350">
+<img src="screenshots/admin-returns.png" width="450">
 </td>
 </tr>
 
 <tr>
-<td><b>Inventory</b></td>
-<td><b>Returns</b></td>
+<td align="center"><b>Inventory Management</b></td>
+<td align="center"><b>Returns Management</b></td>
 </tr>
 </table>
 
@@ -149,23 +170,30 @@ REFUNDED
 <table>
 <tr>
 <td>
-<img src="screenshots/hero-eshop.png" width="350">
+<img src="screenshots/hero-eshop.png" width="450">
 </td>
 <td>
-<img src="screenshots/product-card.png" width="350">
-</td>
-<td>
-<img src="screenshots/checkout.png" width="350">
+<img src="screenshots/product-card.png" width="450">
 </td>
 </tr>
 
 <tr>
-<td><b>Storefront</b></td>
-<td><b>Product Details</b></td>
-<td><b>Checkout</b></td>
+<td align="center"><b>Storefront</b></td>
+<td align="center"><b>Product Details</b></td>
+</tr>
+
+<tr>
+<td>
+<img src="screenshots/checkout.png" width="450">
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td align="center"><b>Checkout Process</b></td>
+<td></td>
 </tr>
 </table>
-
 ---
 
 ## Technology Stack
@@ -186,16 +214,18 @@ REFUNDED
 - Realtime Subscriptions
 - Row Level Security (RLS)
 
-### Deployment
+### Infrastructure & Integrations
 
 - Vercel
+- Serverless Functions
+- Resend
 
 ---
 
 ## Routes
 
 | Route | Description |
-|---------|-------------|
+|--------|-------------|
 | / | Storefront |
 | /admin | OMS Dashboard |
 | /admin/orders | Orders |
@@ -230,6 +260,7 @@ Create a `.env.local` file:
 ```env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+RESEND_API_KEY=your_resend_api_key
 ```
 
 ### Database Setup
@@ -272,35 +303,13 @@ npm run preview
 
 ---
 
-## Inventory Features
-
-- SKU creation
-- Stock adjustments
-- Product archiving
-- Product activation
-- Storefront visibility control
-
-Archived products remain available for historical orders while being hidden from customers.
-
----
-
-## Returns & Refunds
-
-- Return requests
-- Return approval workflow
-- Return received processing
-- Refund handling
-- Revenue adjustments
-- Inventory restoration
-
----
-
 ## Security
 
 Current implementation includes:
 
-- Admin access protection
-- Environment variable configuration
+- Environment variable management
+- Secure server-side API integrations
+- Vercel Serverless Functions
 - Supabase RLS support
 
 Future production implementation should include:
@@ -313,14 +322,12 @@ Future production implementation should include:
 
 ## Future Enhancements
 
-- Authentication
-- Role-based permissions
 - Payment gateway integration
 - Shipment tracking integrations
-- Email notifications
 - Multi-warehouse inventory
 - Vendor management
 - Advanced analytics
+- ERP integrations
 
 ---
 
@@ -336,43 +343,14 @@ src/
 ├── styles.css
 └── types.ts
 
+api/
+└── send-order-email.js
+
 supabase/
 └── schema.sql
 ```
 
 ---
-
-## Deployment
-
-The application is deployed on Vercel and configured for SPA routing using React Router.
-
-### Build
-
-```bash
-npm run build
-```
-
-### Deployment Platform
-
-- Vercel
-
-### Environment Variables
-
-```env
-VITE_SUPABASE_URL=...
-VITE_SUPABASE_ANON_KEY=...
-VITE_ADMIN_PASSWORD=...
-```
-
-### SPA Routing
-
-The project includes a Vercel configuration to support React Router routes such as:
-
-- /admin
-- /admin/orders
-- /admin/orders/:id
-
-without generating 404 errors after page refresh.
 
 ## Author
 
