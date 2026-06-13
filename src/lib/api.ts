@@ -56,7 +56,33 @@ export async function createCheckoutOrder(payload: {
   });
 
   if (error) throw error;
-  return data as string;
+
+const orderId = data as string;
+
+const total =
+  payload.cart.reduce(
+    (sum, item) => sum + item.product.price * item.qty,
+    0
+  ) - (payload.discount_amount || 0);
+
+try {
+  await fetch("/api/send-order-email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      orderId,
+      customerEmail: payload.email,
+      customerName: payload.name,
+      total,
+    }),
+  });
+} catch (emailError) {
+  console.error("Failed to send order confirmation email:", emailError);
+}
+
+return orderId;
 }
 
 export async function updateStatus(id: string, status: Status) {
