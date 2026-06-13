@@ -125,26 +125,18 @@ REFUNDED
 <td>
 <img src="screenshots/admin-orderlist.png" width="450">
 </td>
+  <td>
+<img src="screenshots/admin-order.png" width="450">
+</td>
 </tr>
 
 <tr>
 <td align="center"><b>Dashboard</b></td>
 <td align="center"><b>Orders</b></td>
+  <td align="center"><b>Order Details</b></td>
 </tr>
 
-<tr>
-<td>
-<img src="screenshots/admin-order.png" width="450">
-</td>
-<td>
-<img src="screenshots/email.png" width="450">
-</td>
-</tr>
 
-<tr>
-<td align="center"><b>Order Details</b></td>
-<td align="center"><b>Order Confirmation Email</b></td>
-</tr>
 </table>
 
 ### Operations & Inventory
@@ -186,15 +178,16 @@ REFUNDED
 <td>
 <img src="screenshots/checkout.png" width="450">
 </td>
-<td></td>
+<td><img src="screenshots/email.png" width="450"></td>
 </tr>
 
 <tr>
 <td align="center"><b>Checkout Process</b></td>
-<td></td>
+<td align="center"><b>Order Confirmation Email</b></td>
 </tr>
 </table>
----
+
+--
 
 ## Technology Stack
 
