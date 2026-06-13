@@ -4,8 +4,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { orderId, customerEmail, customerName, total } = req.body;
-
+    const { orderId, orderNumber, customerEmail, customerName, total } = req.body;
     if (!orderId || !customerEmail) {
       return res.status(400).json({ error: "Missing orderId or customerEmail" });
     }
@@ -25,11 +24,11 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         from: "OrderFlow <onboarding@resend.dev>",
         to: customerEmail,
-        subject: `Order Confirmation #${orderId}`,
+        subject: `Order Confirmation #${orderNumber}`,
         html: `
           <h2>Thank you for your order${customerName ? `, ${customerName}` : ""}!</h2>
           <p>Your order has been successfully created.</p>
-          <p><strong>Order ID:</strong> ${orderId}</p>
+          <p><strong>Order Number:</strong> ${orderNumber}</p>
           <p><strong>Total:</strong> €${Number(total || 0).toFixed(2)}</p>
           <br />
           <p>OrderFlow OMS</p>

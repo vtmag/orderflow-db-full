@@ -59,6 +59,15 @@ export async function createCheckoutOrder(payload: {
 
 const orderId = data as string;
 
+const { data: orderData, error: orderError } = await must()
+  .from("orders")
+  .select("order_no")
+  .eq("id", orderId)
+  .single();
+
+if (orderError) throw orderError;
+
+
 const total =
   payload.cart.reduce(
     (sum, item) => sum + item.product.price * item.qty,
@@ -71,8 +80,9 @@ try {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
+      body: JSON.stringify({
       orderId,
+      orderNumber: orderData.order_no,
       customerEmail: payload.email,
       customerName: payload.name,
       total,
